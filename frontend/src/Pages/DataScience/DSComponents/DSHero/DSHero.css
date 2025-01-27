@@ -1,0 +1,42 @@
+.section-datascience {
+  padding: 64px 64px 200px 64px;
+  background-image: linear-gradient(#0a0a0a, #010933);
+}
+
+.datascience-heading {
+  font-size: 120px;
+  text-align: center;
+  background: linear-gradient(45deg, #5ce1e6, #fafafa, #57ff68, #c1ff72);
+  background-size: 400% 400%; /* Ensures the gradient is large enough to move */
+  color: transparent; /* Make text color transparent so the gradient shows */
+  -webkit-background-clip: text; /* Clips the background to the text */
+  background-clip: text; /* Clips the background to the text */
+  animation: gradientAnimation 5s ease infinite, fadeIn 2s ease-out; /* Both gradient and fade-in animations */
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0; /* Start with invisible text */
+  }
+  100% {
+    opacity: 1; /* End with fully visible text */
+  }
+}
+
+.datascience-desc {
+  text-align: justify;
+  font-size: 50px;
+  margin-top: 16px;
+}

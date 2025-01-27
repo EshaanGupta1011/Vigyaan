@@ -1,0 +1,31 @@
+.section-dsself {
+  padding: 64px;
+}
+
+.dsself-heading {
+  text-align: center;
+  font-size: 80px;
+  margin-bottom: 32px;
+}
+
+.dsself-desc {
+  text-align: center;
+  font-size: 40px;
+}
+
+.bounce {
+  display: inline-block;
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px); /* Moves the "!" up */
+  }
+  100% {
+    transform: translateY(0); /* Returns the "!" to its original position */
+  }
+}
