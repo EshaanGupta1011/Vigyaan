@@ -1,4 +1,3 @@
-// src/components/Login/Login.jsx
 import React, { useContext, useState } from "react";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,21 +7,31 @@ import { UserContext } from "../../Context";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(""); // State for error messages
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:3001/login", { email, password })
-      .then((result) => {
-        console.log(result);
-        if (result.data.message === "Success") {
-          setUser({ name: result.data.username });
-          navigate("/");
-        }
-      })
-      .catch((err) => console.log(err));
+    setError("");
+
+    try {
+      const response = await axios.post("http://localhost:3001/login", {
+        email,
+        password,
+      });
+
+      if (response.data.message === "Success") {
+        localStorage.setItem("token", response.data.token); // Store JWT token
+        setUser({ name: response.data.username });
+        navigate("/");
+      } else {
+        setError(response.data.message);
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -48,6 +57,8 @@ const Login = () => {
           <button className="form-btn" type="submit">
             Log in
           </button>
+          {error && <p className="error-message">{error}</p>}{" "}
+          {/* Display error */}
           <p>
             New user?{" "}
             <span>

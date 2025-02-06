@@ -8,17 +8,30 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(""); // State to store error messages
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:3001/register", { name, email, password })
-      .then((result) => {
-        console.log(result);
+    setError(""); // Clear previous errors before submitting
+
+    try {
+      const response = await axios.post("http://localhost:3001/register", {
+        name,
+        email,
+        password,
+      });
+
+      if (response.data.message === "Email already in use") {
+        setError("Email already in use. Try another one.");
+      } else {
+        console.log(response);
         navigate("/login");
-      })
-      .catch((err) => console.log(err));
+      }
+    } catch (err) {
+      console.error("Signup error:", err);
+      setError("Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -48,11 +61,11 @@ const Signup = () => {
             required
             onChange={(e) => setPassword(e.target.value)}
           />
-
           <button className="form-btn" type="submit">
             Sign Up
           </button>
-
+          {error && <p className="error-message">{error}</p>}{" "}
+          {/* Display error */}
           <p>
             Already a user?{" "}
             <span>
