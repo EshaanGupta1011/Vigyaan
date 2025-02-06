@@ -1,18 +1,46 @@
-import React from "react";
+// src/components/Navbar/Navbar.jsx
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import logoImg from "../../assets/logo.png";
-import { Link } from "react-router-dom";
+import { UserContext } from "../../Context";
 
 const Navbar = () => {
+  const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setUser(null);
+
+    navigate("/");
+  };
+
   return (
     <div className="navbar">
-      <div></div>
+      {user ? (
+        <div className="user-name-container">
+          <p className="user-name">Welcome {user.name} !</p>
+        </div>
+      ) : (
+        <div></div>
+      )}
+
       <div className="navbar-logo-container">
-        <img src={logoImg} alt="" className="navbar-logo-img" />
+        <img src={logoImg} alt="Logo" className="navbar-logo-img" />
       </div>
-      <Link to={"/login"}>
-        <button className="navbar-login-btn">Login</button>
-      </Link>
+      {user ? (
+        <div className="navbar-login-btn-container">
+          <button className="navbar-login-btn" onClick={handleLogout}>
+            Log Out
+          </button>
+        </div>
+      ) : (
+        <Link to={"/login"}>
+          <div className="navbar-login-btn-container">
+            <button className="navbar-login-btn">Login</button>
+          </div>
+        </Link>
+      )}
     </div>
   );
 };

@@ -1,7 +1,6 @@
 .navbar {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   padding: 16px;
   background-color: #0a0a0a;
   position: fixed;
@@ -22,10 +21,32 @@
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
+  width: 30%;
 }
 
 .navbar-logo-container {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.navbar-login-btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-name-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+a {
+  text-decoration: none;
 }
